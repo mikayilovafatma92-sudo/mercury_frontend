@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="az" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercury Restoran & Kafe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#F3C649',
+                            500: '#D4AF37',
+                            600: '#B8860B',
+                        },
+                        dark: {
+                            900: '#0F1115',
+                            800: '#161920',
+                            700: '#212530'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1115;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #212530;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        .glass-panel {
+            background: rgba(22, 25, 32, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #E6C252 0%, #D4AF37 50%, #B8860B 100%);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 glass-panel border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-full border border-gold-500/40 flex items-center justify-center bg-gold-500/10 group-hover:bg-gold-500/20 transition">
+                    <i class="fa-solid font-serif text-gold-500 text-xl font-bold">M</i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold tracking-wider text-white">MERCURY</span>
+                    <span class="text-[10px] tracking-[0.2em] text-gold-500 uppercase -mt-1">Restoran & Kafe</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" class="text-white hover:text-gold-500 transition">Ana Səhifə</a>
+                <a href="#about" class="text-gray-300 hover:text-gold-500 transition">Haqqımızda</a>
+                <a href="#menu" class="text-gray-300 hover:text-gold-500 transition">Menyu</a>
+                <a href="#reservation" class="text-gray-300 hover:text-gold-500 transition">Rezervasiya</a>
+                <a href="#reviews" class="text-gray-300 hover:text-gold-500 transition">Rəylər</a>
+                <a href="#contact" class="text-gray-300 hover:text-gold-500 transition">Əlaqə</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Button -->
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-full bg-dark-800 border border-gold-500/30 text-gold-500 hover:bg-gold-500 hover:text-black transition">
+                    <i class="fa-solid fa-utensils text-lg"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gold-500 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Reservation Button -->
+                <a href="#reservation" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full font-medium text-sm gold-gradient-bg text-black hover:opacity-90 transition shadow-lg shadow-gold-500/10">
+                    <i class="fa-regular fa-calendar-check mr-2"></i> Masa Bron Et
+                </a>
+
+                <!-- Mobile Menu Trigger -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-gold-500/20 px-6 py-6 space-y-4">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-white font-medium py-2 hover:text-gold-500">Ana Səhifə</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-gray-300 font-medium py-2 hover:text-gold-500">Haqqımızda</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block text-gray-300 font-medium py-2 hover:text-gold-500">Menyu</a>
+            <a href="#reservation" onclick="toggleMobileMenu()" class="block text-gray-300 font-medium py-2 hover:text-gold-500">Rezervasiya</a>
+            <a href="#reviews" onclick="toggleMobileMenu()" class="block text-gray-300 font-medium py-2 hover:text-gold-500">Rəylər</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-gray-300 font-medium py-2 hover:text-gold-500">Əlaqə</a>
+            <a href="#reservation" onclick="toggleMobileMenu()" class="block w-full text-center py-3 rounded-xl font-medium text-sm gold-gradient-bg text-black">Masa Bron Et</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=80" alt="Mercury Interior" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/75 to-dark-900/60"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-500 text-xs sm:text-sm font-medium mb-6 uppercase tracking-widest backdrop-blur-md">
+                <i class="fa-solid fa-crown"></i> Premium Dad Təcrübəsi
+            </div>
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                Mercury — Dadın və Əhvalın <br class="hidden sm:block"><span class="gold-gradient-text">Mükəmməl Ahəngi</span>
+            </h1>
+            <p class="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                Şəhərin mərkəzində müasir kulinariya sənəti, zərif interyer və unudulmaz qonaqlıq ab-havası. Bizimlə hər an xüsusidir.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#reservation" class="w-full sm:w-auto px-8 py-4 rounded-full gold-gradient-bg text-black font-semibold text-base shadow-xl shadow-gold-500/20 hover:scale-105 transition duration-300">
+                    <i class="fa-solid fa-chair mr-2"></i> Masa Bron Et
+                </a>
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold text-base backdrop-blur-sm hover:border-gold-500/50 transition duration-300">
+                    <i class="fa-solid fa-book-open mr-2"></i> Menyuya Bax
+                </a>
+            </div>
+
+            <!-- Highlights -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-10 border-t border-white/10 max-w-4xl mx-auto">
+                <div class="text-center p-3">
+                    <span class="block text-2xl sm:text-3xl font-bold text-gold-500 font-serif">100+</span>
+                    <span class="text-xs sm:text-sm text-gray-400">Nəfis Yemək və İçki</span>
+                </div>
+                <div class="text-center p-3">
+                    <span class="block text-2xl sm:text-3xl font-bold text-gold-500 font-serif">4.9 ★</span>
+                    <span class="text-xs sm:text-sm text-gray-400">Müştəri Məmnuniyyəti</span>
+                </div>
+                <div class="text-center p-3">
+                    <span class="block text-2xl sm:text-3xl font-bold text-gold-500 font-serif">VIP</span>
+                    <span class="text-xs sm:text-sm text-gray-400">Şəxsi Kabinetlər</span>
+                </div>
+                <div class="text-center p-3">
+                    <span class="block text-2xl sm:text-3xl font-bold text-gold-500 font-serif">08:00 - 00:00</span>
+                    <span class="text-xs sm:text-sm text-gray-400">Hər Gün Açıq</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Image Composition -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80" alt="Mercury Kitchen" class="w-full h-[450px] object-cover">
+                    </div>
+                    <!-- Secondary Accent Image -->
+                    <div class="hidden sm:block absolute -bottom-8 -right-8 w-2/3 h-64 rounded-2xl overflow-hidden border-4 border-dark-800 shadow-2xl z-20">
+                        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Cocktails" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl"></div>
+                </div>
+
+                <!-- Right Text Content -->
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 text-gold-500 font-medium text-sm tracking-wider uppercase">
+                        <span class="w-8 h-[2px] bg-gold-500"></span> Bizim Haqqımızda
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
+                        Ənənəvi Qonaqpərvərlik və <span class="gold-gradient-text">Müasir Mətbəx</span>
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed font-light">
+                        Mercury Restoran & Kafe olaraq məqsədimiz sadəcə yemək təqdim etmək deyil, hər bir qonağımıza estetik və dad baxımından unudulmaz təcrübə yaşatmaqdır. Peşəkar aşpazlarımız ən təzə ərzaqlardan istifadə edərək Avropa və Şərq mətbəxinin ən incə nümunələrini hazırlayır.
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        İstər səhər qəhvəsi, istər işgüzar nahar, istərsə də sevdiklərinizlə özəl şam yeməyi üçün tərzinizə uyğun rahat məkan və VIP zalımız xidmətinizdədir.
+                    </p>
+
+                    <!-- Features checklist -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                        <div class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-circle-check text-gold-500"></i>
+                            <span class="text-sm font-medium">Təzə və Təbii İnqrediyentlər</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-circle-check text-gold-500"></i>
+                            <span class="text-sm font-medium">Master Barista & Şef-Aşpazlar</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-circle-check text-gold-500"></i>
+                            <span class="text-sm font-medium">Canlı Musiqi Gecələri</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-200">
+                            <i class="fa-solid fa-circle-check text-gold-500"></i>
+                            <span class="text-sm font-medium">Rahat Teras və VIP Məkan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Title -->
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-500 font-medium text-sm tracking-widest uppercase">Zərif Dadlar</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Xüsusi Menyumuz</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+                <p class="text-gray-400 text-sm">Aşpazlarımızın xüsusi reseptləri ilə hazırlanan təamları kəşf edin.</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center justify-start md:justify-center gap-2 sm:gap-3 overflow-x-auto pb-6 mb-8 no-scrollbar">
+                <button onclick="filterMenu('all')" class="menu-tab active px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-gold-500 text-black shadow-lg" data-cat="all">
+                    Bütün Menyu
+                </button>
+                <button onclick="filterMenu('seher')" class="menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5" data-cat="seher">
+                    Səhər Yeməyi
+                </button>
+                <button onclick="filterMenu('esas')" class="menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5" data-cat="esas">
+                    Əsas Yeməklər
+                </button>
+                <button onclick="filterMenu('desert')" class="menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5" data-cat="desert">
+                    Desertlər
+                </button>
+                <button onclick="filterMenu('qehve')" class="menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5" data-cat="qehve">
+                    Qəhvə & Çay
+                </button>
+                <button onclick="filterMenu('ickiler')" class="menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5" data-cat="ickiler">
+                    Xüsusi İçkilər
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-container">
+                <!-- Dynamic Items Inserted via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVATION SECTION -->
+    <section id="reservation" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Info Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-gold-500 font-medium text-sm tracking-widest uppercase">Masa Bronu</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
+                        Özəl Masanızı <br><span class="gold-gradient-text">İndi Əldə Edin</span>
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed font-light text-sm">
+                        Qonaqlarımızın rahatlığını təmin etmək üçün masanızı öncədən bron etməyinizi tövsiyə edirik. VIP kabinetlər və teras üçün xüsusi istəklərinizi qeyd edə bilərsiniz.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-gold-500/10 border border-gold-500/30 rounded-xl text-gold-500">
+                                <i class="fa-solid fa-phone text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Telefon ilə Rezervasiya</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">+994 (50) 123 45 67 / +994 (12) 490 00 00</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-gold-500/10 border border-gold-500/30 rounded-xl text-gold-500">
+                                <i class="fa-solid fa-clock text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">İş Saatları</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">Bütün günlər: 08:00 – 00:00</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-gold-500/10 border border-gold-500/30 rounded-xl text-gold-500">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Ünvan</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">20 yanvar küçəsi 142, Mingəşevir şəhəri</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-6 sm:p-10 rounded-3xl relative">
+                        <form id="reservation-form" onsubmit="handleReservationSubmit(event)" class="space-y-6">
+                            <h3 class="font-serif text-2xl font-bold text-white mb-2">Rezervasiya Formu</h3>
+                            <p class="text-xs text-gray-400 mb-6">Zəhmət olmasa bütün xanaları dəqiq doldurun.</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Adınız və Soyadınız</label>
+                                    <input type="text" required placeholder="məs: Elvin Məmmədov" class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Əlaqə Nömrəniz</label>
+                                    <input type="tel" required placeholder="+994 50 000 00 00" class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Tarix</label>
+                                    <input type="date" required class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Saat</label>
+                                    <select required class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition">
+                                        <option value="">Saat seçin</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="20:00">20:00</option>
+                                        <option value="21:30">21:30</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Qonaq Sayı</label>
+                                    <select required class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition">
+                                        <option value="1">1 nəfər</option>
+                                        <option value="2" selected>2 nəfər</option>
+                                        <option value="4">4 nəfər</option>
+                                        <option value="6">6 nəfər</option>
+                                        <option value="8+">8+ nəfər (Qrup)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-gray-300 mb-1.5">Məkan Bölməsi</label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="area" value="iceri" checked class="peer hidden">
+                                        <div class="text-center p-3 rounded-xl bg-dark-900/80 border border-white/10 text-xs font-medium text-gray-300 peer-checked:border-gold-500 peer-checked:text-gold-500 peer-checked:bg-gold-500/10 transition">
+                                            <i class="fa-solid fa-house-user block text-base mb-1"></i> Əsas Zal
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="area" value="teras" class="peer hidden">
+                                        <div class="text-center p-3 rounded-xl bg-dark-900/80 border border-white/10 text-xs font-medium text-gray-300 peer-checked:border-gold-500 peer-checked:text-gold-500 peer-checked:bg-gold-500/10 transition">
+                                            <i class="fa-solid fa-sun block text-base mb-1"></i> Teras
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="area" value="vip" class="peer hidden">
+                                        <div class="text-center p-3 rounded-xl bg-dark-900/80 border border-white/10 text-xs font-medium text-gray-300 peer-checked:border-gold-500 peer-checked:text-gold-500 peer-checked:bg-gold-500/10 transition">
+                                            <i class="fa-solid fa-crown block text-base mb-1"></i> VIP Otaq
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-gray-300 mb-1.5">Əlavə Qeyd (İstəyə bağlı)</label>
+                                <textarea rows="3" placeholder="Özəl gün (Ad günü, ildönümü) və ya başqa istəkləriniz..." class="w-full bg-dark-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500 transition"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl font-bold text-sm gold-gradient-bg text-black hover:opacity-95 transition shadow-xl shadow-gold-500/20">
+                                Rezervasiyanı Təsdiqlə
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section id="reviews" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-gold-500 font-medium text-sm tracking-widest uppercase">Qonaqlarımız Nə Deyir?</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Müştəri Rəyləri</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl relative">
+                    <div class="flex items-center gap-1 text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                        "Mercury-də bifşteks və xüsusi kokteyl dadmaq şansım oldu. Xidmət yüksək səviyyədədir, personal çox gülərüzdür. Mütləq yenidən gələcəyəm!"
+                    </p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-500">
+                            AŞ
+                        </div>
+                        <div>
+                            <h4 class="text-white text-sm font-semibold">Aysel Şirinova</h4>
+                            <span class="text-xs text-gray-500">Daimi Qonaq</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl relative">
+                    <div class="flex items-center gap-1 text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                        "Səhər yeməyi dəsti sadəcə möhtəşəm idi! Xüsusilə təzə bişmiş kruassanlar və ərəb qəhvəsi valeh etdi. Rahat və sakit ab-hava axtaranlar üçün idealdır."
+                    </p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-500">
+                            RH
+                        </div>
+                        <div>
+                            <h4 class="text-white text-sm font-semibold">Rəşad Hüseynov</h4>
+                            <span class="text-xs text-gray-500">İş adamı</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl relative">
+                    <div class="flex items-center gap-1 text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                        "Ad günümü VIP zalda qeyd etdik. Həm tərtibat, həm yeməklərin təqdimatı fantastik idi. Bütün komandaya təşəkkür edirəm!"
+                    </p>
+                    <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-500">
+                            LN
+                        </div>
+                        <div>
+                            <h4 class="text-white text-sm font-semibold">Leyla Nəsirova</h4>
+                            <span class="text-xs text-gray-500">Bloqer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & MAP SECTION -->
+    <section id="contact" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Left: Contact Details -->
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-gold-500 font-medium text-sm tracking-widest uppercase">Bizimlə Əlaqə</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2">Sizi Gözləyirik</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-dark-900 border border-white/5">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-500 text-xl">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Ünvanımız</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">Bakı şəhəri, Nizami küçəsi 142 (Fəvvarələr Meydanı yaxınlığı)</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-dark-900 border border-white/5">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-500 text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">E-poçt</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">info@mercuryrestaurant.az</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-dark-900 border border-white/5">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-500 text-xl">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm">Əlaqə Nömrələri</h4>
+                                <p class="text-gray-400 text-xs mt-0.5">+994 50 123 45 67 | +994 12 490 00 00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-4 pt-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-gray-300 hover:text-gold-500 hover:border-gold-500 transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-gray-300 hover:text-gold-500 hover:border-gold-500 transition">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-gray-300 hover:text-gold-500 hover:border-gold-500 transition">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-900 border border-white/10 flex items-center justify-center text-gray-300 hover:text-gold-500 hover:border-gold-500 transition">
+                            <i class="fa-brands fa-tripadvisor"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Stylized Map Card -->
+                <div class="h-[400px] lg:h-full min-h-[350px] rounded-3xl overflow-hidden border border-gold-500/20 relative shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=80" alt="Map Location" class="w-full h-full object-cover filter brightness-75 contrast-125">
+                    <!-- Map Pin Overlay -->
+                    <div class="absolute inset-0 bg-dark-900/40 flex items-center justify-center">
+                        <div class="text-center p-6 glass-panel rounded-2xl max-w-xs shadow-2xl">
+                            <div class="w-12 h-12 rounded-full gold-gradient-bg text-black flex items-center justify-center mx-auto mb-3 shadow-lg animate-bounce">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <h4 class="font-serif font-bold text-white text-lg">Mercury Restoran</h4>
+                            <p class="text-xs text-gray-300 mt-1">Nizami k. 142, Bakı</p>
+                            <a href="https://maps.google.com" target="_blank" class="inline-block mt-3 text-xs font-semibold text-gold-500 hover:underline">Xəritədə Aç <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-white/10 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <!-- Col 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full border border-gold-500/40 flex items-center justify-center bg-gold-500/10">
+                            <i class="fa-solid font-serif text-gold-500 text-lg font-bold">M</i>
+                        </div>
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">MERCURY</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed font-light">
+                        Müasir kulinariya sənəti, nəfis desertlər və zərif ab-hava ilə Bakının sevimli istirahət məkanı.
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Tez Keçidlər</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#home" class="hover:text-gold-500 transition">Ana Səhifə</a></li>
+                        <li><a href="#about" class="hover:text-gold-500 transition">Haqqımızda</a></li>
+                        <li><a href="#menu" class="hover:text-gold-500 transition">Menyu</a></li>
+                        <li><a href="#reservation" class="hover:text-gold-500 transition">Masa Bronu</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Kategoriyalar</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#menu" class="hover:text-gold-500 transition">Səhər Yeməkləri</a></li>
+                        <li><a href="#menu" class="hover:text-gold-500 transition">Xüsusi Bifştekslər</a></li>
+                        <li><a href="#menu" class="hover:text-gold-500 transition">Təzə Desertlər</a></li>
+                        <li><a href="#menu" class="hover:text-gold-500 transition">Müəllif Kokteylləri</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Yeniliklərə Qoşulun</h4>
+                    <p class="text-xs text-gray-400 mb-3">Xüsusi təkliflər və yeniliklərdən xəbərdar olmaq üçün e-poçtunuzu qeyd edin.</p>
+                    <form onsubmit="handleNewsletter(event)" class="flex gap-2">
+                        <input type="email" required placeholder="E-poçt ünvanınız" class="bg-dark-800 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-500 w-full">
+                        <button type="submit" class="px-4 py-2 bg-gold-500 text-black font-bold rounded-xl text-xs hover:bg-gold-400 transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+                <p>© 2026 Mercury Restoran & Kafe. Bütün hüquqlar qorunur.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:underline">Məxfilik Siyasəti</a>
+                    <a href="#" class="hover:underline">Xidmət Şərtləri</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART MODAL DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-all duration-300">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" onclick="toggleCartModal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Drawer Content -->
+        <div id="cart-panel" class="absolute top-0 right-0 h-full w-full max-w-md bg-dark-800 border-l border-gold-500/20 shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 pointer-events-auto">
+            <div>
+                <!-- Header -->
+                <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-gold-500 text-xl"></i>
+                        <h3 class="font-serif text-xl font-bold text-white">Səbətim</h3>
+                    </div>
+                    <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Items list -->
+                <div id="cart-items-container" class="mt-6 space-y-4 max-h-[55vh] overflow-y-auto pr-2">
+                    <!-- Empty cart fallback -->
+                    <div id="empty-cart-msg" class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-utensils text-4xl text-gray-600 mb-3 block"></i>
+                        <p class="text-sm">Səbəti boşdur. Menyudan dadlı təamlar əlavə edin!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Summary -->
+            <div class="pt-6 border-t border-white/10 space-y-4">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-400">Cəmi məbləğ:</span>
+                    <span id="cart-total-price" class="text-xl font-bold text-gold-500">0.00 ₼</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full py-3.5 rounded-xl font-bold text-sm gold-gradient-bg text-black hover:opacity-95 transition shadow-lg shadow-gold-500/20">
+                    Sifarişi Təsdiqlə
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-dark-800 border border-gold-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-500 flex items-center justify-center">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <span id="toast-message" class="text-sm font-medium">Əməliyyat icra olundu</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // MENU DATA
+        const menuItems = [
+            {
+                id: 1,
+                name: "Zəngin Səhər Yeməyi Dəsti",
+                category: "seher",
+                price: 24.00,
+                desc: "Kərə yağı, bal, qaymaq, müxtəlif pendirlər, zeytun, yumurta və sınırsız çay.",
+                img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "Kruassan & Avokado Poşed",
+                category: "seher",
+                price: 14.50,
+                desc: "Təzə bişmiş fransız kruassanı, avokado püresi və poşed yumurta.",
+                img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "Mercury Ribeye Bifştek",
+                category: "esas",
+                price: 38.00,
+                desc: "Xüsusi sous ilə marinad olunmuş, qril edilmiş premium dana əti və tərəvəzlər.",
+                img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "İtalyan Trüfel Pastası",
+                category: "esas",
+                price: 22.00,
+                desc: "Trüfel yağı, parmezan pendiri və zərif krem souslu təzə fettuccine.",
+                img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "Qızılbalıq (Salmon) Qril",
+                category: "esas",
+                price: 29.50,
+                desc: "Limonlu-kərə yağlı sous və kuşqonmaz ilə təqdim olunan təzə qızılbalıq fıləsi.",
+                img: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "San Sebastian Çizkeyk",
+                category: "desert",
+                price: 11.00,
+                desc: "İsti belçika şokoladı ilə təqdim olunan yumşaq və kremli çizkeyk.",
+                img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                name: "Klassik İtalyan Tiramisu",
+                category: "desert",
+                price: 9.50,
+                desc: "Maskarpone pendiri və espresso lezzəti ilə orijinal tiramisu.",
+                img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                name: "Mercury Özel Cappuccino",
+                category: "qehve",
+                price: 7.00,
+                desc: "Təzə qovrulmuş 100% Arabica dənələri və qızılı darçın bəzəyi ilə.",
+                img: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                name: "Buzlu Karamel Macchiato",
+                category: "qehve",
+                price: 8.50,
+                desc: "Espresso, soyuq süd, karamel sousu və buz dənəcikləri.",
+                img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 10,
+                name: "Qızılı Passion Fruit Kokteyli",
+                category: "ickiler",
+                price: 14.00,
+                desc: "Marakuya, təzə nanə, laym və qazlı limonad ilə hazırlanan alkoqolsuz serinləşdirici.",
+                img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let cart = [];
+
+        // RENDER MENU
+        function renderMenu(category = 'all') {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+
+            filteredItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "glass-panel rounded-2xl overflow-hidden hover:border-gold-500/50 transition duration-300 group flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-gold-500 border border-gold-500/30">
+                                ${item.price.toFixed(2)} ₼
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-2">
+                            <h3 class="font-serif text-lg font-bold text-white group-hover:text-gold-500 transition">${item.name}</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="addToCart(${item.id})" class="w-full py-2.5 rounded-xl bg-dark-900 hover:bg-gold-500 hover:text-black border border-gold-500/30 font-medium text-xs text-gold-500 flex items-center justify-center gap-2 transition duration-300">
+                            <i class="fa-solid fa-cart-plus"></i> Səbətə Əlavə Et
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // FILTER TABS
+        function filterMenu(category) {
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                if (tab.dataset.cat === category) {
+                    tab.className = "menu-tab active px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-gold-500 text-black shadow-lg";
+                } else {
+                    tab.className = "menu-tab px-5 py-2.5 rounded-full text-sm font-medium transition whitespace-nowrap bg-dark-800 text-gray-300 hover:text-white border border-white/5";
+                }
+            });
+            renderMenu(category);
+        }
+
+        // CART LOGIC
+        function addToCart(id) {
+            const item = menuItems.find(i => i.id === id);
+            const existing = cart.find(c => c.id === id);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${item.name}" səbətə əlavə olundu`);
+        }
+
+        function updateQty(id, change) {
+            const item = cart.find(c => c.id === id);
+            if (!item) return;
+
+            item.qty += change;
+            if (item.qty <= 0) {
+                cart = cart.filter(c => c.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count');
+            const itemsContainer = document.getElementById('cart-items-container');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const totalEl = document.getElementById('cart-total-price');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            countEl.textContent = totalCount;
+            totalEl.textContent = `${totalPrice.toFixed(2)} ₼`;
+
+            if (cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                itemsContainer.innerHTML = '';
+                itemsContainer.appendChild(emptyMsg);
+            } else {
+                emptyMsg.style.display = 'none';
+                itemsContainer.innerHTML = '';
+
+                cart.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = "flex items-center justify-between p-3 rounded-xl bg-dark-900 border border-white/5";
+                    el.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <img src="${item.img}" class="w-12 h-12 rounded-lg object-cover">
+                            <div>
+                                <h4 class="text-xs font-semibold text-white max-w-[130px] truncate">${item.name}</h4>
+                                <span class="text-xs text-gold-500 font-bold">${(item.price * item.qty).toFixed(2)} ₼</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 bg-dark-800 px-2 py-1 rounded-lg border border-white/10">
+                            <button onclick="updateQty(${item.id}, -1)" class="text-xs text-gray-400 hover:text-white px-1">-</button>
+                            <span class="text-xs font-bold text-white px-1">${item.qty}</span>
+                            <button onclick="updateQty(${item.id}, 1)" class="text-xs text-gray-400 hover:text-white px-1">+</button>
+                        </div>
+                    `;
+                    itemsContainer.appendChild(el);
+                });
+            }
+        }
+
+        function toggleCartModal() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                panel.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('pointer-events-none', 'opacity-0');
+                panel.classList.add('translate-x-full');
+            }
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) {
+                showToast("Səbətiniz boşdur!");
+                return;
+            }
+            showToast("Sifarişiniz qəbul olundu! Tezliklə yaxınlaşacağıq.");
+            cart = [];
+            updateCartUI();
+            toggleCartModal();
+        }
+
+        // MOBILE MENU
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars text-2xl";
+            } else {
+                icon.className = "fa-solid fa-xmark text-2xl";
+            }
+        }
+
+        // FORM SUBMISSIONS
+        function handleReservationSubmit(e) {
+            e.preventDefault();
+            showToast("Masa rezervasiyanız qeydə alındı! Təsdiq üçün zəng ediləcək.");
+            e.target.reset();
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast("Yeniliklərimizə uğurla abunə oldunuz!");
+            e.target.reset();
+        }
+
+        // TOAST SYSTEM
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // INIT
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMenu('all');
+        });
+    </script>
+</body>
+<script>
+// ===== BACKEND QOŞULMASI =====
+async function apiPost(url, body) {
+    const r = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+    const data = await r.json().catch(() => ({}));
+    return { ok: r.ok, data };
+}
+
+// Menyunu bazadan yüklə
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const r = await fetch('/api/menu');
+        const items = await r.json();
+        if (Array.isArray(items) && items.length) {
+            menuItems.length = 0;
+            items.forEach(i => menuItems.push(i));
+            renderMenu('all');
+        }
+    } catch (e) {
+        console.error('Menyu yüklənmədi', e);
+    }
+});
+
+// Rezervasiya
+async function handleReservationSubmit(e) {
+    e.preventDefault();
+    const f = e.target;
+    const [name, phone, date, time, guests, note] =
+        f.querySelectorAll('input[type=text], input[type=tel], input[type=date], select, textarea');
+    const area = f.querySelector('input[name=area]:checked').value;
+    try {
+        const { ok, data } = await apiPost('/api/reservations', {
+            name: name.value, phone: phone.value, date: date.value,
+            time: time.value, guests: guests.value, area, note: note.value
+        });
+        if (!ok) return showToast(data.error || 'Xəta baş verdi');
+        showToast('Masa rezervasiyanız qeydə alındı! Təsdiq üçün zəng ediləcək.');
+        f.reset();
+    } catch (err) {
+        showToast('Xeta: ' + err.message);
+    }
+}
+
+// Newsletter
+async function handleNewsletter(e) {
+    e.preventDefault();
+    const f = e.target;
+    try {
+        const { ok, data } = await apiPost('/api/newsletter', { email: f.querySelector('input').value });
+        if (!ok) return showToast(data.error || 'Xəta baş verdi');
+        showToast('Yeniliklərimizə uğurla abunə oldunuz!');
+        f.reset();
+    } catch (err) {
+        showToast('Xəta: ' + err.message);
+    }
+}
+
+// Sifariş
+async function checkoutCart() {
+    if (cart.length === 0) return showToast('Səbətiniz boşdur!');
+    const name = prompt('Adınız:');
+    if (!name) return;
+    const phone = prompt('Telefon nömrəniz (+994...):');
+    if (!phone) return;
+    try {
+        const { ok, data } = await apiPost('/api/orders', {
+            name, phone,
+            items: cart.map(i => ({ id: i.id, qty: i.qty }))
+        });
+        if (!ok) return showToast(data.error || 'Xəta baş verdi');
+        showToast('Sifarişiniz qəbul olundu! Cəmi: ' + data.total.toFixed(2) + ' ₼');
+        cart = [];
+        updateCartUI();
+        toggleCartModal();
+    } catch (err) {
+        showToast('Xeta: ' + err.message);
+    }
+}
+</script>
+</html>
+
+
+### 🌟 Layihə Xüsusiyyətləri:
+1. **İnteraktiv Menyu:** Kategoriyalar arası keçid (Səhər Yeməyi, Əsas Yeməklər, Desertlər, Qəhvə, İçkilər) tam animasiyalı işləyir.
+2. **Dynamic Cart (Səbət):** Yemək əlavə etmək, porsiya sayını artırıb-azaltmaq və ümumi məbləğin avtomatik hesablanması dəstəklənir.
+3. **Masa Bron Formu:** İzləyicinin tarix, saat, qonaq sayı və yer seçimi (Zal, Teras, VIP) daxil edə biləcəyi geniş rezervasiya bloku.
+4. **Cavabdeh (Responsive) Dizayn:** Mobil telefonlar, planşetlər və böyük ekranlar üçün uyğunlaşdırılmışdır.
